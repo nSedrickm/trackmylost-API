@@ -15,7 +15,7 @@ class ItemsTableSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
- 
+
         // Create 50 product records
         for ($i = 0; $i < 10; $i++) {
             Item::create([
@@ -23,7 +23,7 @@ class ItemsTableSeeder extends Seeder
                 'first_name' => $faker->name(1),
                 'other_names' => $faker->name(2),
                 'phone_number' => $faker->randomNumber(9),
-                'reward' => $faker->boolean(1)
+                'reward' => $faker->word(1)
             ]);
         }
     }

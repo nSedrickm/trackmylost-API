@@ -16,6 +16,11 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('document_type');
+            $table->string('first_name');
+            $table->string('other_names');
+            $table->string('phone_number');
+            $table->string('reward');
         });
     }
 

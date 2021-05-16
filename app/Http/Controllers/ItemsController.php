@@ -7,8 +7,21 @@ use App\Models\Item;
 
 class ItemsController extends Controller
 {
-    public function index()
+    public function index(Request $request, Item $item)
     {
+        if ($request->has('name')) {
+            $search_result = $item
+                ->where('first_name', $request->input('name'))
+                ->orWhere('other_names', $request->input('name'))
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            if ($search_result->isEmpty()) {
+                Item::abort(404);
+            }
+
+            return $search_result;
+        }
         return Item::all();
     }
 

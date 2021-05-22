@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 /**
  **Basic Routes for a RESTful service:
  **Route::get($uri, $callback);
@@ -27,25 +23,26 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  **
  */
 
+// user route is protected
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+// auth routes
+Route::post('/login', 'UserController@login');
+Route::post('/register', 'UserController@register');
+Route::get('/logout', 'UserController@logout');
 
 // item routes
 Route::get('items', 'ItemsController@index');
-
 Route::get('items/{item}', 'ItemsController@show');
-
 Route::post('items', 'ItemsController@store');
-
 Route::put('items/{item}', 'ItemsController@update');
-
 Route::delete('items/{item}', 'ItemsController@delete');
 
 //alett routes
 Route::get('alerts', 'AlertsController@index');
-
 Route::get('alerts/{alert}', 'AlertsController@show');
-
 Route::post('alerts', 'AlertsController@store');
-
 Route::put('alerts/{alert}', 'AlertsController@update');
-
 Route::delete('alerts/{alert}', 'AlertsController@delete');

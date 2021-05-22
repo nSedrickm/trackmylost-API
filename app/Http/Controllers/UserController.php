@@ -35,7 +35,7 @@ class UserController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'string', 'max:255', 'unique:users'],
             'town' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:6'],
+            'password' => ['required', 'string', 'min:4'],
         ]);
     }
 

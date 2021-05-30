@@ -20,9 +20,8 @@ class AlertsTableSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             Alert::create([
                 'name' => $faker->name(1),
-                'document_type' => $faker->title,
-                'email' => $faker->safeEmail,
-                'phone_number' => $faker->randomNumber(9),
+                'document_type' => $faker->randomElement(['id-card', 'passport', 'driver-license', 'credit-card']),
+                'phone_number' => $faker->randomElement(['670004518', '669123485', '697845147']),
             ]);
         }
     }

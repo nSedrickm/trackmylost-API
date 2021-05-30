@@ -18,7 +18,6 @@ class CreateAlertsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('document_type');
-            $table->string('email');
             $table->string('phone_number');
         });
     }

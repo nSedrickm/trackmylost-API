@@ -22,6 +22,20 @@ class ItemsController extends Controller
 
             return $search_result;
         }
+
+        if ($request->has('phone_number')) {
+            $search_result = $item
+                ->where('phone_number', $request->input('phone_number'))
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            if ($search_result->isEmpty()) {
+                Item::abort(404);
+            }
+
+            return $search_result;
+        }
+
         return Item::all();
     }
 

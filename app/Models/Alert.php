@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Alert extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'document_type', 'email','phone_number'];
+    protected $fillable = ['name', 'document_type', 'phone_number'];
 }

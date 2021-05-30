@@ -19,11 +19,11 @@ class ItemsTableSeeder extends Seeder
         // Create 50 product records
         for ($i = 0; $i < 10; $i++) {
             Item::create([
-                'document_type' => $faker->title,
-                'first_name' => $faker->name(1),
-                'other_names' => $faker->name(2),
-                'phone_number' => $faker->randomNumber(9),
-                'reward' => $faker->word(1)
+                'document_type' => $faker->randomElement(['id-card', 'passport','driver-license','credit-card']),
+                'first_name' => $faker->firstName(),
+                'other_names' => $faker->LastName(2),
+                'phone_number' => $faker->randomElement(['670004518', '669123485', '697845147']),
+                'reward' => $faker->randomElement(['yes', 'no'])
             ]);
         }
     }

@@ -33,10 +33,6 @@ Route::post('/login', 'AdminController@login');
 Route::post('/register', 'AdminController@register');
 Route::get('/logout', 'AdminController@logout');
 
-// user management
-Route::post('/login', 'UserController@login');
-Route::post('/register', 'UserController@register');
-
 // item routes
 Route::get('users', 'UserController@index');
 Route::get('users/{user}', 'UserController@show');

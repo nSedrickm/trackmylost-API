@@ -11,13 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $request, Admin $admin)
     {
         $this->validator($request->all())->validate();
-        $user = $this->create($request->all());
-        $this->guard()->login($user);
+        $admin = $this->create($request->all());
         return response()->json([
-            'user' => $user,
+            'admin' => $admin,
             'message' => 'registration successful'
         ], 200);
     }
@@ -28,12 +27,13 @@ class AdminController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'phone_number' => ['required', 'string', 'max:255', 'unique:users'],
+            'phone_number' => ['required', 'string', 'max:255', 'unique:admins'],
             'town' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:4'],
         ]);
@@ -48,7 +48,6 @@ class AdminController extends Controller
 
     protected function create(array $data)
     {
-
         return Admin::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -58,18 +57,10 @@ class AdminController extends Controller
         ]);
     }
 
-    protected function guard()
-    {
-        return Auth::guard('admin');
-    }
-
     public function login(Request $request)
     {
         $credentials = $request->only('phone_number', 'password');
-
         if (Auth::guard('admin')->attempt($credentials)) {
-            // auth passed
-            $authuser = auth('admin')->user();
             return response()->json(['message' => 'Login successful'], 200);
         } else {
             return response()->json(['message' => 'Invalid phone number or password'], 401);

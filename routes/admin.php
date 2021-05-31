@@ -32,3 +32,14 @@ Route::middleware('auth:admin')->get('/user', function (Request $request) {
 Route::post('/login', 'AdminController@login');
 Route::post('/register', 'AdminController@register');
 Route::get('/logout', 'AdminController@logout');
+
+// user management
+Route::post('/login', 'UserController@login');
+Route::post('/register', 'UserController@register');
+
+// item routes
+Route::get('users', 'UserController@index');
+Route::get('users/{user}', 'UserController@show');
+Route::post('users', 'UserController@register');
+Route::put('users/{user}', 'UserController@update');
+Route::delete('users/{user}', 'UserController@delete');

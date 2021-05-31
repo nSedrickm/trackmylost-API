@@ -60,16 +60,16 @@ class AdminController extends Controller
 
     protected function guard()
     {
-        return Auth::guard();
+        return Auth::guard('admin');
     }
 
     public function login(Request $request)
     {
         $credentials = $request->only('phone_number', 'password');
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($credentials)) {
             // auth passed
-            $authuser = auth()->user();
+            $authuser = auth('admin')->user();
             return response()->json(['message' => 'Login successful'], 200);
         } else {
             return response()->json(['message' => 'Invalid phone number or password'], 401);

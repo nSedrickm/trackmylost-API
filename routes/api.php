@@ -28,15 +28,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:sanctum')->get('/admin/user', function (Request $request) {
-    return $request->user();
-});
-
-// admin auth routes
-Route::post('/admin/login', 'AdminController@login');
-Route::post('/admin/register', 'AdminController@register');
-Route::get('/admin/logout', 'AdminController@logout');
-
 // user/agent auth routes
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@register');

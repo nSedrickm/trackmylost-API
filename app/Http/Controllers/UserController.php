@@ -81,4 +81,42 @@ class UserController extends Controller
         Auth::logout();
         return response()->json(['message' => 'Logged Out'], 200);
     }
+
+    public function index(Request $request, User $user)
+    {
+        if ($request->has('name')) {
+            $search_result = $user
+                ->where('first_name', $request->input('name'))
+                ->orWhere('other_names', $request->input('name'))
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            if ($search_result->isEmpty()) {
+                User::abort(404);
+            }
+
+            return $search_result;
+        }
+
+        return User::all();
+    }
+
+    public function show(User $user)
+    {
+        return $user;
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $user->update($request->all());
+
+        return response()->json($user, 200);
+    }
+
+    public function delete(User $user)
+    {
+        $user->delete();
+
+        return response()->json(null, 204);
+    }
 }

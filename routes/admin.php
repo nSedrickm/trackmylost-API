@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 // Admin route is protected
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:admin')->get('/user', function (Request $request) {
     return $request->user();
 });
 

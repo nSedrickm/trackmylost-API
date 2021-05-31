@@ -15,7 +15,6 @@ class UserController extends Controller
     {
         $this->validator($request->all())->validate();
         $user = $this->create($request->all());
-        $this->guard()->login($user);
         return response()->json([
             'user' => $user,
             'message' => 'registration successful'
@@ -48,7 +47,6 @@ class UserController extends Controller
 
     protected function create(array $data)
     {
-
         return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -58,18 +56,11 @@ class UserController extends Controller
         ]);
     }
 
-    protected function guard()
-    {
-        return Auth::guard();
-    }
-
     public function login(Request $request)
     {
         $credentials = $request->only('phone_number', 'password');
 
-        if (Auth::attempt($credentials)) {
-            // auth passed
-            $authuser = auth()->user();
+        if (Auth::guard('user')->attempt($credentials)) {
             return response()->json(['message' => 'Login successful'], 200);
         } else {
             return response()->json(['message' => 'Invalid phone number or password'], 401);

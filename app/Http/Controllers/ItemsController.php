@@ -9,6 +9,8 @@ class ItemsController extends Controller
 {
     public function index(Request $request, Item $item)
     {
+
+        //used to search for item based on name
         if ($request->has('name')) {
             $search_result = $item
                 ->where('first_name', $request->input('name'))
@@ -23,6 +25,7 @@ class ItemsController extends Controller
             return $search_result;
         }
 
+        // return only items registered by the phone number 
         if ($request->has('phone_number')) {
             $search_result = $item
                 ->where('phone_number', $request->input('phone_number'))
@@ -34,6 +37,12 @@ class ItemsController extends Controller
             }
 
             return $search_result;
+        }
+
+        if ($request->has('recent')) {
+            return Item::latest('id')
+            ->take(4)
+            ->get();
         }
 
         return Item::all();

@@ -21,6 +21,7 @@ class NotificationsTableSeeder extends Seeder
             Notification::create([
                 'type' => $faker->randomElement(['item-found', 'agent-registered']),
                 'document_type' => $faker->randomElement(['id-card', 'passport', 'driver-license', 'credit-card']),
+                'phone_number' => $faker->randomElement(['670004518', '669123485', '697845147']),
                 'name' => $faker->firstName()
             ]);
         }

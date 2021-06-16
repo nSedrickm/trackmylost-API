@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->unique();
             $table->string('town');
             $table->string('password');
+            $table->string('status')->default('unauthorized');;
             $table->rememberToken();
         });
     }

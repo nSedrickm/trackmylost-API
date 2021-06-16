@@ -40,9 +40,16 @@ Route::post('items', 'ItemsController@store');
 Route::put('items/{item}', 'ItemsController@update');
 Route::delete('items/{item}', 'ItemsController@delete');
 
-//alett routes
+//alert routes
 Route::get('alerts', 'AlertsController@index');
 Route::get('alerts/{alert}', 'AlertsController@show');
 Route::post('alerts', 'AlertsController@store');
 Route::put('alerts/{alert}', 'AlertsController@update');
 Route::delete('alerts/{alert}', 'AlertsController@delete');
+
+//notification routes
+Route::get('notifications', 'NotificationsController@index');
+Route::get('notifications/{notification}', 'NotificationsController@show');
+Route::post('notifications', 'NotificationsController@store');
+Route::put('notifications/{notification}', 'NotificationsController@update');
+Route::delete('notifications/{notification}', 'NotificationsController@delete');

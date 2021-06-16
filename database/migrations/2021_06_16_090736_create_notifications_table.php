@@ -18,7 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->timestamps();
             $table->string('type');
             $table->string('document_type');
-            $table->string('phone_number');
+            $table->string('phone_number')->default('*********');;
             $table->string('name');
         });
     }

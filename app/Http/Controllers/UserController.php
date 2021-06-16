@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,6 +16,15 @@ class UserController extends Controller
     {
         $this->validator($request->all())->validate();
         $user = $this->create($request->all());
+
+        $full_names = $request->first_name . " " . $request->last_name;
+
+        Notification::create([
+            "type" => "agent-registered",
+            "phone_number" => $request->phone_number,
+            "name" => $full_names
+        ]);
+
         return response()->json([
             'user' => $user,
             'message' => 'registration successful'

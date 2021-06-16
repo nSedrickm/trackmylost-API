@@ -74,7 +74,7 @@ class ItemsController extends Controller
             ]);
         }
 
-        return response()->json($result, 201);
+        return response()->json(null, 201);
     }
 
     public function update(Request $request, Item $item)

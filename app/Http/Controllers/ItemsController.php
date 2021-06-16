@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Item;
+use App\Models\Notification;
+use App\Models\Alert;
+
 
 class ItemsController extends Controller
 {
@@ -11,6 +15,8 @@ class ItemsController extends Controller
     {
 
         //used to search for item based on name
+        // $result = Item::select("*", DB::raw("CONCAT(items.first_name,' ',items.other_names) as full_name"))->first();
+
         if ($request->has('name')) {
             $search_result = $item
                 ->where('first_name', $request->input('name'))
@@ -41,8 +47,8 @@ class ItemsController extends Controller
 
         if ($request->has('recent')) {
             return Item::latest('id')
-            ->take(4)
-            ->get();
+                ->take(4)
+                ->get();
         }
 
         return Item::all();
@@ -57,7 +63,18 @@ class ItemsController extends Controller
     {
         $item = Item::create($request->all());
 
-        return response()->json($item, 201);
+        $full_names = $request->first_name . " " . $request->other_names;
+        $result = Alert::where('name', $full_names)->first();
+
+        if ($result) {
+            Notification::create([
+                "type" => "item-found",
+                "document_type" => $result->document_type,
+                "name" => $result->name
+            ]);
+        }
+
+        return response()->json($result, 201);
     }
 
     public function update(Request $request, Item $item)

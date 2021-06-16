@@ -20,7 +20,8 @@ class NotificationsTableSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             Notification::create([
                 'type' => $faker->randomElement(['item-found', 'agent-registered']),
-                'message' => $faker->randomElement(['Found item for Ngwa', 'New agent registered']),
+                'document_type' => $faker->randomElement(['id-card', 'passport', 'driver-license', 'credit-card']),
+                'name' => $faker->firstName()
             ]);
         }
     }

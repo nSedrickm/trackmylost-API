@@ -69,6 +69,13 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('phone_number', 'password');
+        $user = User::where('phone_number', $request->phone_number)->first();
+
+        if ($user) {
+            if ($user->status == "unauthorized") {
+                return response()->json(['message' => "Account Unauthorized contact Admin"], 401);
+            }
+        }
 
         if (Auth::guard('user')->attempt($credentials)) {
             return response()->json(['message' => 'Login successful'], 200);

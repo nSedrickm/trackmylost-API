@@ -15,23 +15,24 @@ class ItemsController extends Controller
     {
 
         //used to search for item based on name
-        // $result = Item::select("*", DB::raw("CONCAT(items.first_name,' ',items.other_names) as full_name"))->first();
 
         if ($request->has('name')) {
+            $name = $request->input('name');
             $search_result = $item
-                ->where('first_name', $request->input('name'))
-                ->orWhere('other_names', $request->input('name'))
+                ->where('first_name', $name)
+                ->orWhere('other_names', $name)
+                ->orWhereRaw("CONCAT(first_name, ' ', other_names) LIKE ?", [$name])
                 ->orderBy('created_at', 'desc')
                 ->get();
 
             if ($search_result->isEmpty()) {
-                Item::abort(404);
+                return response()->json(null, 404);;
             }
 
             return $search_result;
         }
 
-        // return only items registered by the phone number 
+        // return only items registered by the phone number
         if ($request->has('phone_number')) {
             $search_result = $item
                 ->where('phone_number', $request->input('phone_number'))

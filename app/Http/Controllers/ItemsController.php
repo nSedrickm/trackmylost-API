@@ -52,7 +52,7 @@ class ItemsController extends Controller
                 ->get();
         }
 
-        return Item::all();
+        return Item::orderByDesc('id')->get();
     }
 
     public function show(Item $item)

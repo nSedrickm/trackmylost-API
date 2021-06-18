@@ -22,7 +22,8 @@ class UserController extends Controller
         Notification::create([
             "type" => "agent-registered",
             "phone_number" => $request->phone_number,
-            "name" => $full_names
+            "name" => $full_names,
+            "agent_id" => $user->id
         ]);
 
         return response()->json([

@@ -20,6 +20,7 @@ class CreateNotificationsTable extends Migration
             $table->string('document_type')->default('*********');
             $table->string('phone_number')->default('*********');
             $table->string('name');
+            $table->string('agent_id')->default('**');
         });
     }
 

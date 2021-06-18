@@ -9,7 +9,8 @@ class AlertsController extends Controller
 {
     public function index()
     {
-        return Alert::all();
+        return Alert::orderByDesc('id')->get();
+
     }
 
     public function show(Alert $alert)

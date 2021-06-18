@@ -10,7 +10,7 @@ class NotificationsController extends Controller
 {
     public function index()
     {
-        return Notification::all();
+        return Notification::orderByDesc('id')->get();
     }
 
     public function show(Notification $notification)
